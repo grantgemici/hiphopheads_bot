@@ -1,5 +1,8 @@
 import re
 import requests
+import urllib.request
+from bs4 import BeautifulSoup
+
 
 URL='https://www.reddit.com/r/hiphopheads/search?'
 
@@ -24,6 +27,22 @@ def clean_title(title, remove_features=True):
         print('Replace feature tag didnt work... Skipping')
 
     return title
+
+def generate_url(artist_name,song_name):
+
+    # set paramters dict
+    params = {'q':artist_name + ' ' + song_name,
+            'restrict_sr': 'on',
+            'include_over_18': 'on',
+            'sort': 'new',
+            't': 'year',
+            'feature': 'legacy_search'
+            }
+    
+    # generate the request URL and headers
+    req_url = URL + urllib.parse.urlencode(params)
+    
+    return req_url
 
 
 

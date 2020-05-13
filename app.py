@@ -33,18 +33,24 @@ for submission in subreddit.new():
 
     if ' - ' not in title:
         continue
-
     title_clean = clean_title(title, remove_features=False)
+
     t_items = title_clean.split(' - ')
     artist_name = (t_items[0])
     song_name = (t_items[1]) 
-    # if ' - ' in title:
-    #     msg = ('Use [this link](https://www.reddit.com/r/hiphopheads/search?q=' + artist_name + '+' + song_title + '&restrict_sr=on&include_over_18=on&sort=new&t=year&feature=legacy_search to check whether your post is a repost and use this link to check if the song you posted is on the [Overposted list](https://docs.google.com/spreadsheets/d/1Qpbd-fHbMyfWXlWPRA_XfgzYayc8cIjn8J9CuL-aNpE/edit).' + \n + \n + 'If your post is a repost or on the Overposted list and you fail to remove it within 2 hours of posting, you will receive a temporary ban of 1 or 2 days. Repeated offenses will carry larger penalties.')
-    #     reddit.send_message(user, 'Please make sure your post is not a repost', msg)
-    #     print('A submission was made and I messaged the author')
-    # else:
-    #     print('A submisison was made, but I did not message the author.')
-    print(i,'|',title,'|',title_clean,'|',artist_name,'|',song_name)
-    check_repost(artist_name,song_name)
+    
+    req_url = generate_url(artist_name,song_name)
+
+    
+    msg = ('Use [this link]({}) to check whether your post is a repost and use this link to check if the song you posted is on the [Overposted list](https://docs.google.com/spreadsheets/d/1Qpbd-fHbMyfWXlWPRA_XfgzYayc8cIjn8J9CuL-aNpE/edit).'.format(req_url) + '\n' + '\n' + 'If your post is a repost or on the Overposted list and you fail to remove it within 2 hours of posting, you will receive a temporary ban of 1 or 2 days. Repeated offenses will carry larger penalties.')
+
+    #reddit.send_message(user, 'Please make sure your post is not a repost', msg)
+    print('-='*50)
+    print('Title:',title)
+    print('Clean Title:',title_clean)
+    print('Artist:',artist_name)
+    print('Song:',song_name)
+    print('Message:')
+    print(msg)
+
     time.sleep(1)
-    i += 1
